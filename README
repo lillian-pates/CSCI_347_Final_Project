@@ -1,30 +1,31 @@
-Overview
+Overview:
 This project applies unsupervised learning techniques to identify underlying flood event regimes using hydrologic and meteorological data. The goal is to improve parametric flood insurance trigger design by diagnosing where current triggers fail.
 
-We use:
+Methods:
 Principal Component Analysis (PCA)
 Kernel PCA (k-PCA)
 Clustering (K-means)
 Density-based clustering (DBSCAN)
 Anomaly detection
 
-Objectives
+Objectives:
 Identify distinct flood regimes (fluvial, pluvial, mixed)
 Detect extreme and anomalous flood events
 Evaluate how well current triggers capture different regimes
 Use results to inform improved parametric trigger design
 
-Files 
-raw file --> combined_data_1975_2025_all.csv
-cleaned file --> daily_with_flow_percentile.csv
-feature engineering --> event_level_features.csv (use this for analysis)
-standardized --> event_level_features_modeling_only.csv (use this for eval)
+Project Structure:
+Data
+  raw file --> combined_data_1975_2025_all.csv
+  cleaned file --> daily_with_flow_percentile.csv
+  feature engineering --> event_level_features.csv (use this for analysis)
+  standardized --> event_level_features_modeling_only.csv (use this for eval)
 
 Scripts 
-1. Run feature engineering: feature_engineering.py
-2. Run PCA:
-3. Run clustering:
-4. Run evaluation:
+  1. Run feature engineering: feature_engineering.py
+  2. Run PCA:
+  3. Run clustering:
+  4. Run evaluation:
 
 
 
