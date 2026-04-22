@@ -46,6 +46,15 @@ USE_ABS_CORR = True
 # Optional: manually define impact proxy column if you want
 IMPACT_COL_MANUAL = None  # e.g. "impact_proxy"
 
+df = pd.read_csv(INPUT_FILE)
+impact_df = pd.read_csv(DATA_DIR / "impact_curve_continuous.csv")
+
+# ensure dates match format
+df["center_date"] = pd.to_datetime(df["center_date"])
+impact_df["center_date"] = pd.to_datetime(impact_df["center_date"])
+
+# merge
+df = df.merge(impact_df, on="center_date", how="left")
 
 # -----------------------------
 # HELPERS
