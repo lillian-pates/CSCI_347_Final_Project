@@ -1,0 +1,53 @@
+INPUT FILE
+/Users/lillypates/Documents/GitHub/CSCI_347_Final_Project/data/combined_data_1975_2025_all.csv
+
+DATE COLUMN
+date
+
+FLOOD LABEL USED
+flood_m2_p2
+
+FLOW COLUMN USED
+flow
+
+QSTAR
+0.9
+
+RAIN TOTAL COLS
+['rain_3day', 'rain_5day', 'rain_7day', 'rain_14day']
+
+RAIN DAILY COLS
+['rain_1day']
+
+RAIN INTENSITY COLS
+[]
+
+API COLS
+['api_k_0_90', 'api_k_0_95']
+
+STORM DISTANCE COL
+None
+
+STORM WIND COL
+WS2M
+
+IMPACT COL
+None
+
+SEVERITY COL
+None
+
+MODELING COLS
+flow_raw_max
+flow_raw_mean
+flow_pct_max
+flow_pct_mean
+duration_above_90
+max_exceedance_90
+area_above_90
+days_to_peak_flow
+rain_14day_max
+rain_1day_max
+rain_before_peak
+storm_wind_max
+storm_wind_mean
