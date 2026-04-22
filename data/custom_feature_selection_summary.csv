@@ -1,9 +1,13 @@
 item,value
-flow_col_used,flow
-rain_3day_col_used,rain_3day
+input_file,/Users/lillypates/Documents/GitHub/CSCI_347_Final_Project/data/combined_data_1975_2025_all.csv
+date_col,date
+flood_col,flood_m2_p2
+flow_col,flow
 api_09_col_used,api_k_0_90
-selected_rain_intensity,tp_6h_max_mm
-selected_rain_intensity_abs_corr_with_rain_3day,0.7029876072631431
-humidity_vars,RH2M
-wind_vars,"WS2M, storm_max_wind_kt"
-output_columns,"storm_within_300km, rain_3day, api_k_0_90, duration_above_90, area_above_90, tp_6h_max_mm, RH2M, WS2M, storm_max_wind_kt"
+n_flood_events,40
+n_nonflood_events,80
+selected_rain_intensity_from_requested_pair,tp_6h_intensity_mm_hr_max
+selected_rain_intensity_abs_corr_with_rain_3day,0.7914881739183939
+humidity_event_columns,"RH2M_max, RH2M_mean"
+wind_event_columns,"window_n_days, flood_label_in_window, WS2M_max, WS2M_mean, storm_max_wind_kt_max, storm_max_wind_kt_mean"
+final_output_columns,"event_id, center_date, is_flood_event, window_n_days, flood_label_in_window, storm_min_distance_km, storm_within_300km, rain_3day, api_k_0_90, duration_above_90, area_above_90, tp_6h_intensity_mm_hr_max, RH2M_max, RH2M_mean, WS2M_max, WS2M_mean, storm_max_wind_kt_max, storm_max_wind_kt_mean"
