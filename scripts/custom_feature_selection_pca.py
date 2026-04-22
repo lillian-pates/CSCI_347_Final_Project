@@ -286,10 +286,12 @@ summary_rows = [
 
 summary_df = pd.DataFrame(summary_rows)
 intensity_df = pd.DataFrame(intensity_rows)
+excel_path = OUTPUT_SUMMARY_FILE.with_suffix(".xlsx")
 
-with pd.ExcelWriter(OUTPUT_SUMMARY_FILE.replace(".csv", ".xlsx")) as writer:
-    summary_df.to_excel(writer, sheet_name="summary", index=False)
-    intensity_df.to_excel(writer, sheet_name="rain_6h_12h_check", index=False)
+summary_df.to_csv(OUTPUT_SUMMARY_FILE, index=False)
+
+intensity_out = OUTPUT_SUMMARY_FILE.with_name("rain_intensity_check.csv")
+intensity_df.to_csv(intensity_out, index=False)
 
 # also save csv summary
 summary_df.to_csv(OUTPUT_SUMMARY_FILE, index=False)
@@ -299,7 +301,6 @@ summary_df.to_csv(OUTPUT_SUMMARY_FILE, index=False)
 # -----------------------------
 print("Saved reduced dataset to:", OUTPUT_REDUCED_FILE)
 print("Saved summary csv to:", OUTPUT_SUMMARY_FILE)
-print("Saved summary xlsx to:", OUTPUT_SUMMARY_FILE.replace(".csv", ".xlsx"))
 print("\nSelected variables:")
 for c in final_keep:
     print(" -", c)
