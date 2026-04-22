@@ -45,7 +45,7 @@ OUTPUT_DIR = DATA_DIR
 WINDOW_BEFORE = 2
 WINDOW_AFTER = 2
 QSTAR = 0.90
-NON_FLOOD_MULTIPLIER = 1.0
+NON_FLOOD_MULTIPLIER = 2.0
 MIN_EVENT_GAP = 5
 
 # ============================================================
