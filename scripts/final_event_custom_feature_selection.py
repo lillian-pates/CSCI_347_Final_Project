@@ -53,6 +53,14 @@ OUTPUT_REDUCED_FILE = DATA_DIR / "master_event_level_features.csv"
 OUTPUT_SUMMARY_FILE = DATA_DIR / "custom_feature_selection_summary.csv"
 OUTPUT_RAIN_CHECK_FILE = DATA_DIR / "rain_intensity_check.csv"
 
+
+impact_file = DATA_DIR / "impact_curve_continuous.csv"
+impact_df = pd.read_csv(impact_file)
+
+impact_df["rp"] = pd.to_numeric(impact_df["rp"], errors="coerce")
+impact_df["total_impact"] = pd.to_numeric(impact_df["total_impact"], errors="coerce")
+impact_df["aep"] = pd.to_numeric(impact_df["aep"], errors="coerce")
+
 # -------------------------------
 # USER SETTINGS
 # -------------------------------
@@ -280,8 +288,20 @@ def engineer_event_features(window_df, center_date, event_id, is_flood):
     row["rain_3day"] = safe_max(window_df["rain_3day"]) if "rain_3day" in window_df.columns else np.nan
     row["api_k_0_90"] = safe_max(window_df[api_09_col]) if api_09_col in window_df.columns else np.nan
 
+    # event-level percentile features derived from daily flow percentile
+    row["max_percentile"] = safe_max(window_df["flow_percentile"]) if "flow_percentile" in window_df.columns else np.nan
     row["duration_above_90"] = safe_sum(window_df["above_90_daily"]) if "above_90_daily" in window_df.columns else np.nan
     row["area_above_90"] = safe_sum(window_df["flow_exceedance_90_daily"]) if "flow_exceedance_90_daily" in window_df.columns else np.nan
+
+    
+    if "rp" in window_df.columns:
+        row["rp"] = safe_max(window_df["rp"])
+    if "total_impact" in window_df.columns:
+        row["total_impact"] = safe_max(window_df["total_impact"])
+    if "aep" in window_df.columns:
+        row["aep"] = safe_max(window_df["aep"])
+
+        
 
     # humidity features
     for c in humidity_daily_cols:
@@ -378,6 +398,7 @@ requested_core = [
     "storm_within_300km",
     "rain_3day",
     "api_k_0_90",
+    "max_percentile",
     "duration_above_90",
     "area_above_90"
 ]
@@ -385,11 +406,29 @@ requested_core = [
 if best_intensity is not None:
     requested_core.append(best_intensity)
 
-humidity_event_cols = [c for c in event_df.columns if any(k in c.lower() for k in ["rh", "humidity"])]
-wind_event_cols = [c for c in event_df.columns if ("wind" in c.lower() or "ws2m" in c.lower())]
+humidity_event_cols = [
+    c for c in event_df.columns
+    if any(k in c.lower() for k in ["rh", "humidity"])
+]
+
+wind_event_cols = [
+    c for c in event_df.columns
+    if ("wind" in c.lower() or "ws2m" in c.lower())
+]
+
+impact_proxy_cols = [
+    c for c in ["rp", "total_impact", "aep"]
+    if c in event_df.columns
+]
 
 final_keep = []
-for c in id_vars + requested_core + humidity_event_cols + wind_event_cols:
+for c in (
+    id_vars
+    + requested_core
+    + humidity_event_cols
+    + wind_event_cols
+    + impact_proxy_cols
+):
     if c in event_df.columns and c not in final_keep:
         final_keep.append(c)
 
