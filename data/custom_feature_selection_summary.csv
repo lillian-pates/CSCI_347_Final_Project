@@ -1,0 +1,9 @@
+item,value
+flow_col_used,flow
+rain_3day_col_used,rain_3day
+api_09_col_used,api_k_0_90
+selected_rain_intensity,tp_6h_max_mm
+selected_rain_intensity_abs_corr_with_rain_3day,0.7029876072631431
+humidity_vars,RH2M
+wind_vars,"WS2M, storm_max_wind_kt"
+output_columns,"storm_within_300km, rain_3day, api_k_0_90, duration_above_90, area_above_90, tp_6h_max_mm, RH2M, WS2M, storm_max_wind_kt"
