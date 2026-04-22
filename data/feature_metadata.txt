@@ -41,13 +41,13 @@ MODELING COLS
 flow_raw_max
 flow_raw_mean
 flow_pct_max
-flow_pct_mean
 duration_above_90
 max_exceedance_90
 area_above_90
 days_to_peak_flow
 rain_14day_max
 rain_1day_max
+rain_1day_sum
 rain_before_peak
 storm_wind_max
 storm_wind_mean
