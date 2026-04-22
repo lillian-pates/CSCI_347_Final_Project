@@ -38,7 +38,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 # -------------------------------
 # USER SETTINGS
 # -------------------------------
-INPUT_FILE = DATA_DIR / "combined_data_1975_2025_all.csv"
+INPUT_FILE = DATA_DIR / "event_level_features.csv"
 IMPACT_CURVE_FILE = DATA_DIR / "impact_curve_continuous.csv"
 
 OUTPUT_REDUCED_FILE = DATA_DIR / "event_level_features_reduced.csv"
