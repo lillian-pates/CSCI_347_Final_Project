@@ -38,7 +38,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 # -------------------------------
 # USER SETTINGS
 # -------------------------------
-INPUT_FILE = DATA_DIR / "event_level_features.csv"
+INPUT_FILE = DATA_DIR / "combined_data_1975_2025_all.csv"
 IMPACT_CURVE_FILE = DATA_DIR / "impact_curve_continuous.csv"
 
 OUTPUT_REDUCED_FILE = DATA_DIR / "event_level_features_reduced.csv"
@@ -164,16 +164,23 @@ def select_best_variable(summary_df, use_abs=True):
 df = pd.read_csv(INPUT_FILE)
 impact_df = pd.read_csv(IMPACT_CURVE_FILE)
 
-# Ensure numeric severity proxy exists
-if "flow_pct_max" not in df.columns:
-    raise ValueError("Expected 'flow_pct_max' in the main dataset to build rp for the impact curve join.")
+# Build daily return period proxy from the full flow series
+flow_col = first_existing(
+    df,
+    ["flow", "predicted_flow", "forecasted_flow", "lisflood_flow", "flow_pred", "streamflow", "discharge"],
+    required=True
+)
 
-# Build an event-level return period proxy from flow percentile severity.
-# Higher flow_pct_max -> larger severity_rank -> larger rp.
-df["flow_pct_max"] = pd.to_numeric(df["flow_pct_max"], errors="coerce")
-df["severity_rank"] = df["flow_pct_max"].rank(pct=True)
-df["severity_rank"] = df["severity_rank"].clip(lower=1e-6, upper=0.999)
-df["rp"] = 1 / (1 - df["severity_rank"])
+df[flow_col] = pd.to_numeric(df[flow_col], errors="coerce")
+
+# empirical percentile on the full daily dataset
+df["flow_percentile"] = df[flow_col].rank(pct=True)
+
+# avoid infinite rp at percentile = 1
+df["flow_percentile"] = df["flow_percentile"].clip(lower=1e-6, upper=0.999)
+
+# return period proxy
+df["rp"] = 1 / (1 - df["flow_percentile"])
 
 # Prepare impact curve
 required_impact_cols = ["rp", "total_impact"]
