@@ -39,13 +39,7 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # input + output both in /data
 INPUT_FILE = DATA_DIR / "combined_data_1975_2025_all.csv"
-OUTPUT_DIR = DATA_DIR   # no subfolder
-
-
-print("INPUT_FILE =", INPUT_FILE)
-print("Exists?", INPUT_FILE.exists())
-print("Size in bytes:", INPUT_FILE.stat().st_size)
-
+OUTPUT_DIR = DATA_DIR
 
 # parameters
 WINDOW_BEFORE = 2
