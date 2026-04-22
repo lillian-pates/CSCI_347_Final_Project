@@ -24,27 +24,29 @@ import os
 import warnings
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 warnings.filterwarnings("ignore")
 
 # ============================================================
 # USER SETTINGS
 # ============================================================
+from pathlib import Path
 
-INPUT_FILE = "~/Desktop/combined_data_1975_2025_all.csv"
-OUTPUT_DIR = "processed_data_mining"
+# repo root
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = REPO_ROOT / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-# Event window: ±2 days recommended
+# input + output both in /data
+INPUT_FILE = DATA_DIR / "combined_data_1975_2025_all.csv"
+OUTPUT_DIR = DATA_DIR   # no subfolder
+
+# parameters
 WINDOW_BEFORE = 2
-WINDOW_AFTER  = 2
-
-# Threshold in percentile space
+WINDOW_AFTER = 2
 QSTAR = 0.90
-
-# Number of non-flood events to sample relative to flood events
-NON_FLOOD_MULTIPLIER = 1.0   # 1.0 = same number as floods
-
-# Optional: minimum spacing between candidate events (days)
+NON_FLOOD_MULTIPLIER = 1.0
 MIN_EVENT_GAP = 5
 
 # ============================================================
